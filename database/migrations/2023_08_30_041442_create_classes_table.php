@@ -16,8 +16,10 @@ class CreateClassesTable extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->bigIncrements('cls_id');
             $table->string('cls_name');
-            $table->foreign('cls_student_id')->references('std_id')->on('students')->onDelete('cascade')->unique();
-            $table->foreign('cls_teacher_id')->references('tcr_id')->on('teachers')->onDelete('cascade')->unique();
+            $table->unsignedBigInteger('cls_student_id');
+            $table->unsignedBigInteger('cls_teacher_id');
+            $table->foreign('cls_student_id')->references('std_id')->on('students')->onDelete('cascade');
+            $table->foreign('cls_teacher_id')->references('tcr_id')->on('teachers')->onDelete('cascade');
             $table->boolean('cls_status')->default(1);
             $table->unsignedBigInteger('cls_created_by');
             $table->unsignedBigInteger('cls_updated_by')->nullable();

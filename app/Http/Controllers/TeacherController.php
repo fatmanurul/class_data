@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Teachers;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Yajra\DataTables\DataTables;
 
 class TeacherController extends Controller
 {
@@ -14,7 +16,18 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+          if (request()->ajax()) {
+            return DataTables::of(Teachers::query())
+                ->addIndexColumn()
+                ->addColumn('status', function ($teachers) {
+                    return $teachers->tcr_status == 1 ? 'Aktif' : 'Tidak aktif';
+                })
+                ->make(true);
+        }
+        
+        $teachers = teachers::all();
+        
+        return view('admin.teachers.index', ['teachers' => $teachers]);
     }
 
     /**
@@ -24,7 +37,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.teachers.create');
     }
 
     /**
@@ -35,7 +48,28 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = [
+            'unique' => 'Nama sudah dipakai!',
+            'required' => 'Silahkan isi kolom ini!'
+        ];
+        $validatedData = $request->validate([
+            'tcr_NUPTK' => 'required',
+            'tcr_name' => 'required',
+            'tcr_religion' => 'required',
+            'tcr_gender' => 'required',
+            'tcr_place_of_birth' => 'required',
+            'tcr_date_of_birth' => 'required',
+            'tcr_subjects' => 'required',
+            'tcr_number_phone' => 'required',
+            'tcr_address' => 'required'
+        ],$message
+    );
+        $validatedData['tcr_created_by'] = auth()->user()->usr_id;
+
+        // insert data ke database
+        Teachers::create($validatedData);
+
+        return redirect('/admin/teachers')->with('success', 'Guru baru telah ditambahkan!');
     }
 
     /**
@@ -46,7 +80,12 @@ class TeacherController extends Controller
      */
     public function show(Teachers $teachers)
     {
-        //
+        // dd($teachers);
+        $teachers = Teachers::where('tcr_id', $teachers->tcr_id)->first();
+
+        return view('admin.teachers.show', [
+            'teachers' => $teachers,
+        ]);
     }
 
     /**
@@ -81,5 +120,19 @@ class TeacherController extends Controller
     public function destroy(Teachers $teachers)
     {
         //
+    }
+
+    public function switch($id)
+    {
+        $status = Teachers::where('tcr_id', $id)->first(); 
+        if($status->tcr_status == 1){
+           $status->tcr_status = 0; 
+           $status->save();
+        return redirect('/admin/teachers')->with('success', 'Guru telah dinonaktifkan!');
+        }else{
+            $status->tcr_status = 1;
+            $status->save();
+            return redirect('/admin/teachers')->with('success', 'Guru berhhasil diaktifkan!');  
+        }
     }
 }

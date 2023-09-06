@@ -14,7 +14,19 @@ class ClassController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->ajax()) {
+            return DataTables::of(Classes::query())
+                ->addIndexColumn()
+                ->addColumn('status', function ($classes) {
+                    return $classes->cls_status == 1 ? 'Aktif' : 'Tidak aktif';
+                })
+                ->make(true);
+     
+        }
+        
+        $classes = Classes::all();
+        
+        return view('admin.classes.index', ['classes' => $classes]);
     }
 
     /**

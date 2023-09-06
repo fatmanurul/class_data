@@ -15,14 +15,15 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('std_id');
-            $table->unsignedBigInteger('std_nis');
+            $table->unsignedBigInteger('std_nisn');
+            $table->string('std_name');
             $table->integer('std_religion');
             $table->string('std_gender');
             $table->string('std_place_of_birth');
             $table->date('std_date_of_birth');
-            $table->integer('std_student_phone_number');
-            $table->string('std_parents/guardien_name');
-            $table->integer('std_parents/guardien_phone_name');
+            $table->BigInteger('std_student_phone_number');
+            $table->string('std_parents_name');
+            $table->BigInteger('std_parents_phone_name');
             $table->text('std_address');
             $table->boolean('std_status')->default(1);
             $table->unsignedBigInteger('std_created_by');

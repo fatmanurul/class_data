@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Classes extends Model
 {
     use HasFactory;
+    protected $table = 'classes';
+    protected $primaryKey = 'cls_id';
+
+    const CREATED_AT = 'cls_created_at';
+    const UPDATED_AT = 'cls_updated_at';
+    const DELETED_AT = 'cls_deleted_at';
+    
+    protected $guarded = ['cls_id'];
 }
