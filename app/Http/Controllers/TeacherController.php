@@ -49,11 +49,11 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $message = [
-            'unique' => 'Nama sudah dipakai!',
+            'unique' => 'NUPTK sudah dipakai!',
             'required' => 'Silahkan isi kolom ini!'
         ];
         $validatedData = $request->validate([
-            'tcr_NUPTK' => 'required',
+            'tcr_NUPTK' => 'required|unique:teachers',
             'tcr_name' => 'required',
             'tcr_religion' => 'required',
             'tcr_gender' => 'required',
@@ -78,11 +78,9 @@ class TeacherController extends Controller
      * @param  \App\Models\Teachers  $teachers
      * @return \Illuminate\Http\Response
      */
-    public function show(Teachers $teachers)
+    public function show($teacher)
     {
-        // dd($teachers);
-        $teachers = Teachers::where('tcr_id', $teachers->tcr_id)->first();
-
+        $teachers = Teachers::where('tcr_id', $teacher)->first();
         return view('admin.teachers.show', [
             'teachers' => $teachers,
         ]);

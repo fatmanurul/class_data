@@ -14,20 +14,20 @@ Halaman Dashboard
     <div class="row g-5">
           <div class="col-4">
               <div style=" background-color:RGB(237, 164, 76);padding: 10px; text-align:center;">
-                <h1 style="color:white;">{{$classes_count}}</h1>
-                <p style = "Times; color:white;">Jumlah Kelas</p>
+                <h1 style="color:white;">{{$students_count}}</h1>
+                <p style = "Times; color:white;">Jumlah Siswa</p>
               </div>
            </div>
         <div class="col-4">
               <div style=" background-color:RGB(93, 148, 227);padding: 10px; text-align:center;">
-                <h1 style="color:white;">{{$students_count}}</h1>
-                <p style = "Times; color:white;">Jumlah Siswa</p>
+                <h1 style="color:white;">{{$teachers_count}}</h1>
+                <p style = "Times; color:white;">Jumlah Guru</p>
                </div>
         </div>
         <div class="col-4">
               <div style=" background-color:RGB(154, 201, 105);padding: 10px; text-align:center;">
-                <h1 style="color:white;">{{$teachers_count}}</h1>
-                <p style = "Times; color:white;">Jumlah Guru</p>
+                <h1 style="color:white;">{{$classes_count}}</h1>
+                <p style = "Times; color:white;">Jumlah Kelas</p>
               </div>
         </div>
     </div>

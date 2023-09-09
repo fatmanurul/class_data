@@ -22,6 +22,9 @@ class StudentController extends Controller
                 ->addColumn('status', function ($students) {
                     return $students->std_status == 1 ? 'Aktif' : 'Tidak aktif';
                 })
+                ->addColumn('std_gender', function ($students) {
+                    return $students->std_gender == 1 ? 'Laki-Laki' : 'Perempuan';
+                })
                 ->make(true);
      
         }
@@ -51,11 +54,11 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $message = [
-            'unique' => 'Nama sudah dipakai!',
+            'unique' => 'Nisn sudah dipakai!',
             'required' => 'Silahkan isi kolom ini!'
         ];
         $validatedData = $request->validate([
-            'std_nisn' => 'required',
+            'std_nisn' => 'required|unique:students',
             'std_name' => 'required',
             'std_religion' => 'required',
             'std_gender' => 'required',
@@ -63,7 +66,7 @@ class StudentController extends Controller
             'std_date_of_birth' => 'required',
             'std_student_phone_number' => 'required',
             'std_parents_name' => 'required',
-            'std_parents_phone_name' => 'required',
+            'std_parents_phone' => 'required',
             'std_address' => 'required'
         ],$message
     );
@@ -81,12 +84,11 @@ class StudentController extends Controller
      * @param  \App\Models\Students  $students
      * @return \Illuminate\Http\Response
      */
-    public function show(Students $students)
+    public function show($student)
     {
+        $students = Students::where('std_id', $student)->first();
+        //  dd($students->std_id);
         // dd($students);
-        // dd($students->std_id);
-        $students = Students::where('std_id', $students->std_id)->first();
-
         return view('admin.students.show', [
             'students' => $students,
         ]);
@@ -99,9 +101,14 @@ class StudentController extends Controller
      * @param  \App\Models\Students  $students
      * @return \Illuminate\Http\Response
      */
-    public function edit(Students $students)
+    public function edit($students)
     {
-        //
+        $students = Students::where('std_id', $students)
+                        ->first();
+
+        return view('admin.students.edit',[
+            'students' => $students
+        ]);
     }
 
     /**
@@ -111,9 +118,45 @@ class StudentController extends Controller
      * @param  \App\Models\Students  $students
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Students $students)
+    public function update(Request $request, $students_id)
     {
-        //
+       
+        $messages = [
+            'required' => 'Silahkan isi kolom ini!',
+            'unique' => 'Nis sudah dipakai!'
+        ];
+
+       
+        $student = $request->validate([
+            'std_nisn' => 'required|unique:students',
+            'std_name' => 'required',
+            'std_religion' => 'required',
+            'std_gender' => 'required',
+            'std_place_of_birth' => 'required',
+            'std_date_of_birth' => 'required',
+            'std_student_phone_number' => 'required',
+            'std_parents_name' => 'required',
+            'std_parents_phone' => 'required',
+            'std_address' => 'required'
+        ], $messages);
+        // dd($request);
+
+
+        $update = Students::where('std_id', $students_id)->first();
+        $update->std_nisn = $request->std_nisn;
+        $update->std_name = $request->std_name;
+        $update->std_religion = $request->std_religion;
+        $update->std_gender = $request->std_gender;
+        $update->std_place_of_birth = $request->std_place_of_birth;
+        $update->std_date_of_birth = $request->std_date_of_birth;
+        $update->std_student_phone_number = $request->std_student_phone_number;
+        $update->std_parents_name = $request->std_parents_name;
+        $update->std_parents_phone = $request->std_parents_phone;
+        $update->std_address = $request->std_address;
+        $update['std_updated_by'] = auth()->user()->usr_id;       
+        $update->save();
+
+        return redirect('/admin/students/' . $students_id)->with('success', 'Siswa telah diperbarui!');
     }
 
     /**

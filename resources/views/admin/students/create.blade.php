@@ -118,10 +118,10 @@ Halaman Tambah Siswa
   </div>
 
   <div class="mb-3">
-    <label for="std_parents_phone_name" class="form-label">Nomor Orang Tua/Wali</label>
-    <input type="number" class="form-control @error ('std_parents_phone_name') is-invalid @enderror" id="std_parents_phone_name" name="std_parents_phone_name" autofocus value="{{old('std_parents_phone_name')}}" required data-parsley-inputs data-parsley-trigger="keyup">
+    <label for="std_parents_phone" class="form-label">Nomor Orang Tua/Wali</label>
+    <input type="number" class="form-control @error ('std_parents_phone') is-invalid @enderror" id="std_parents_phone" name="std_parents_phone" autofocus value="{{old('std_parents_phone')}}" required data-parsley-inputs data-parsley-trigger="keyup">
     <!-- pesan error -->
-    @error('std_parents_phone_name')
+    @error('std_parents_phone')
     <div class="invalid-feedback">
      {{ $message }}
     </div>

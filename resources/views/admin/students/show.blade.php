@@ -39,12 +39,12 @@
             <tr>
                 <th style="vertical-align: top;"><small>Agama</small></th>
                 <td><small>:</small></td>
-                <td><small>{{ $students->std_religion }}</small></td>
+                <td><small>@if($students->std_religion == 1)Islam @elseif($students->std_religion == 2) kristen @elseif($students->std_religion == 3) katolik @elseif($students->std_religion == 4) hindu @elseif($students->std_religion == 5) Budha @endif</small></td>
             </tr>
             <tr>
                 <th style="vertical-align: top;"><small>Jenis Kelamin</small></th>
                 <td><small>:</small></td>
-                <td><small>{{ $students->std_gender }}</small></td>
+                <td><small>@if($students->std_gender == 1)Laki-Laki @else perempuan @endif</small></td>
             </tr>
             <tr>
                 <th style="vertical-align: top;"><small>Tempat Lahir</small></th>
@@ -59,7 +59,7 @@
             <tr>
                 <th style="vertical-align: top;"><small>Nomor Telepon Siswa</small></th>
                 <td><small>:</small></td>
-                <td><small>{{ $students->std_student_phone }}</small></td>
+                <td><small>{{ $students->std_student_phone_number }}</small></td>
             </tr>
             <tr>
                 <th style="vertical-align: top;"><small>Nama Orang Tua</small></th>
@@ -69,7 +69,7 @@
             <tr>
                 <th style="vertical-align: top;"><small>Nomor Telepon Orang Tua</small></th>
                 <td><small>:</small></td>
-                <td><small>{{ $students->std_parents_phone_name }}</small></td>
+                <td><small>{{ $students->std_parents_phone }}</small></td>
             </tr>
             <tr>
                 <th style="vertical-align: top;"><small>Alamat</small></th>

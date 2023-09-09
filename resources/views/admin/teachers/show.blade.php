@@ -29,7 +29,7 @@
             <tr>
                 <th style="vertical-align: top;"><small>Nuptk</small></th>
                 <td><small>:</small></td>
-                <td><small>{{$teachers->tcr_nuptk}}</small></td>
+                <td><small>{{$teachers->tcr_NUPTK}}</small></td>
             </tr>
             <tr>
                 <th style="vertical-align: top;"><small>Nama Guru</small></th>
@@ -74,7 +74,7 @@
            
         </table>
                 <a style="color: white;" href="/admin/teachers" class="btn btn-secondary">kembali</a>
-                <a style="color: white;" href="/admin/teachers/{{ $students->tcr_id}}/edit" class="btn btn-warning"><span data-feather="edit"></span>ubah</a>
+                <a style="color: white;" href="/admin/teachers/{{ $teachers->tcr_id}}/edit" class="btn btn-warning"><span data-feather="edit"></span>ubah</a>
 	</div>
 </div>
  </div>

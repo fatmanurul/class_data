@@ -23,7 +23,7 @@ class CreateStudentsTable extends Migration
             $table->date('std_date_of_birth');
             $table->BigInteger('std_student_phone_number');
             $table->string('std_parents_name');
-            $table->BigInteger('std_parents_phone_name');
+            $table->BigInteger('std_parents_phone');
             $table->text('std_address');
             $table->boolean('std_status')->default(1);
             $table->unsignedBigInteger('std_created_by');
